@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clear Path Property Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <h1>Clear Path Property Solutions</h1>
+      <p class="sub">Buyer Buy Box + Seller Property Intake (USA • UK • Ireland)</p>
+    </div>
+    <nav class="nav">
+      <a href="#buyers">Buyers</a>
+      <a href="#sellers">Sellers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Fast, simple intake for deals & buyers</h2>
+      <p>
+        We accept <strong>probates</strong>, <strong>code violations</strong>, <strong>pre-foreclosures</strong>,
+        <strong>land</strong>, and standard off-market opportunities.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="#buyers">Submit Buy Box</a>
+        <a class="btn btn-outline" href="#sellers">Submit Property</a>
+      </div>
+    </section>
+
+    <!-- BUYERS -->
+    <section id="buyers" class="card">
+      <h3>Buyer Buy Box Form</h3>
+      <p class="muted">Investors: submit what you’re buying and where.</p>
+
+      <form id="buyerForm" class="form">
+        <div class="grid">
+          <label>Full Name
+            <input name="fullName" required />
+          </label>
+
+          <label>Company
+            <input name="company" />
+          </label>
+
+          <label>Email
+            <input name="email" type="email" required />
+          </label>
+
+          <label>Phone
+            <input name="phone" />
+          </label>
+
+          <label>Markets (Country)
+            <select name="markets" required>
+              <option value="">Select…</option>
+              <option>USA</option>
+              <option>United Kingdom</option>
+              <option>Ireland</option>
+              <option>USA + UK</option>
+              <option>USA + Ireland</option>
+              <option>UK + Ireland</option>
+              <option>USA + UK + Ireland</option>
+            </select>
+          </label>
+
+          <label>States / Counties / Cities
+            <input name="locations" placeholder="Example: NC (Raleigh, Greensboro) • London • Dublin" />
+          </label>
+
+          <fieldset class="field">
+            <legend>Property Types</legend>
+            <div class="checks">
+              <label><input type="checkbox" name="propertyTypes" value="Single Family" /> Single Family</label>
+              <label><input type="checkbox" name="propertyTypes" value="Multi-Family" /> Multi-Family</label>
+              <label><input type="checkbox" name="propertyTypes" value="Condo/Townhome" /> Condo/Townhome</label>
+              <label><input type="checkbox" name="propertyTypes" value="Land" /> Land</label>
+              <label><input type="checkbox" name="propertyTypes" value="Other" /> Other</label>
+            </div>
+          </fieldset>
+
+          <label>Strategy
+            <select name="strategy">
+              <option value="">Select…</option>
+              <option>Fix & Flip</option>
+              <option>Buy & Hold</option>
+              <option>BRRRR</option>
+              <option>Development</option>
+              <option>Wholesale Buyer</option>
+            </select>
+          </label>
+
+          <label>Beds (min)
+            <input name="bedsMin" type="number" min="0" />
+          </label>
+
+          <label>Baths (min)
+            <input name="bathsMin" type="number" min="0" step="0.5" />
+          </label>
+
+          <label>Min Sqft
+            <input name="minSqft" type="number" min="0" />
+          </label>
+
+          <label>Max Purchase Price
+            <input name="maxPrice" type="number" min="0" />
+          </label>
+
+          <label>Land Min Acres
+            <input name="landMinAcres" type="number" min="0" step="0.1" />
+          </label>
+
+          <label>Land Max Acres
+            <input name="landMaxAcres" type="number" min="0" step="0.1" />
+          </label>
+
+          <label>Proof of Funds?
+            <select name="pof">
+              <option value="">Select…</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Can provide on request</option>
+            </select>
+          </label>
+
+          <label>Preferred Contact Method
+            <select name="contactMethod">
+              <option value="">Select…</option>
+              <option>Text</option>
+              <option>Email</option>
+              <option>Call</option>
+            </select>
+          </label>
+
+          <label class="full">Notes
+            <textarea name="notes" rows="4" placeholder="Anything else (zip codes, price bands, etc.)"></textarea>
+          </label>
+        </div>
+
+        <button class="btn" type="submit">Submit Buy Box</button>
+        <p id="buyerMsg" class="msg" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- SELLERS -->
+    <section id="sellers" class="card">
+      <h3>Seller Property Form</h3>
+      <p class="muted">Homeowners: submit your property details to get an offer.</p>
+
+      <form id="sellerForm" class="form">
+        <div class="grid">
+          <label>Full Name
+            <input name="fullName" required />
+          </label>
+
+          <label>Email
+            <input name="email" type="email" required />
+          </label>
+
+          <label>Phone
+            <input name="phone" />
+          </label>
+
+          <label>Country
+            <select name="country" required>
+              <option value="">Select…</option>
+              <option>USA</option>
+              <option>United Kingdom</option>
+              <option>Ireland</option>
+            </select>
+          </label>
+
+          <label class="full">Property Address
+            <input name="address" required placeholder="Street address" />
+          </label>
+
+          <label>City
+            <input name="city" />
+          </label>
+
+          <label>State/Region
+            <input name="stateRegion" placeholder="State (US) / County (UK/IE)" />
+          </label>
+
+          <label>Zip/Postal
+            <input name="postal" />
+          </label>
+
+          <label>Property Type
+            <select name="propertyType" required>
+              <option value="">Select…</option>
+              <option>Single Family</option>
+              <option>Multi-Family</option>
+              <option>Condo/Townhome</option>
+              <option>Land</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Is this land?
+            <select name="isLand">
+              <option value="">Select…</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </label>
+
+          <label>Beds
+            <input name="beds" type="number" min="0" />
+          </label>
+
+          <label>Baths
+            <input name="baths" type="number" min="0" step="0.5" />
+          </label>
+
+          <label>Sqft
+            <input name="sqft" type="number" min="0" />
+          </label>
+
+          <label>Lot Size / Acres
+            <input name="lotAcres" placeholder="Example: 0.25 acres or 2.5" />
+          </label>
+
+          <label>Condition
+            <select name="condition">
+              <option value="">Select…</option>
+              <option>Move-in ready</option>
+              <option>Light updates</option>
+              <option>Needs rehab</option>
+              <option>Major repairs</option>
+            </select>
+          </label>
+
+          <label>Asking Price
+            <input name="askingPrice" type="number" min="0" />
+          </label>
+
+          <label>Reason for Selling
+            <input name="reason" placeholder="Example: inherited, moving, behind on payments, etc." />
+          </label>
+
+          <label>Situation
+            <select name="situation">
+              <option value="">Select…</option>
+              <option>Probate</option>
+              <option>Code Violations</option>
+              <option>Pre-Foreclosure</option>
+              <option>Vacant</option>
+              <option>Tired Landlord</option>
+              <option>Just looking to sell</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>Timeline
+            <select name="timeline">
+              <option value="">Select…</option>
+              <option>ASAP</option>
+              <option>0–30 days</option>
+              <option>30–60 days</option>
+              <option>60–90 days</option>
+              <option>90+ days</option>
+            </select>
+          </label>
+
+          <label>Occupancy
+            <select name="occupancy">
+              <option value="">Select…</option>
+              <option>Owner occupied</option>
+              <option>Tenant occupied</option>
+              <option>Vacant</option>
+            </select>
+          </label>
+
+          <label>Best Time to Contact
+            <input name="bestTime" placeholder="Example: weekdays after 5pm" />
+          </label>
+
+          <label class="full">Property Description / Notes
+            <textarea name="notes" rows="5" placeholder="Tell us what’s going on with the property..."></textarea>
+          </label>
+        </div>
+
+        <button class="btn" type="submit">Submit Property</button>
+        <p id="sellerMsg" class="msg" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card">
+      <h3>Contact</h3>
+      <p class="muted">
+        Email: <a href="mailto:clearpathpropertysolutions@gmail.com">clearpathpropertysolutions@gmail.com</a>
+      </p>
+    </section>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Clear Path Property Solutions</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

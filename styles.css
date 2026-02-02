@@ -310,3 +310,27 @@ input:focus, select:focus, textarea:focus{ border-color: rgba(245,197,66,.55); }
   .checks2{grid-template-columns:1fr}
   .formFoot{flex-direction:column; align-items:stretch}
 }
+/* BUYER OPT-IN FIX */
+.optIn{
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(18,18,26,.55);
+  color: var(--text);
+  width: 100%;
+}
+
+.optIn input{
+  width: 16px;
+  height: 16px;
+  accent-color: #f2c94c;
+}
+
+/* makes sure it spans the whole row even inside a grid */
+.optIn.full{
+  grid-column: 1 / -1 !important;
+}

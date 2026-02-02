@@ -1,42 +1,66 @@
-// script.js
+// ==========================
+// CONFIG (ALWAYS AT THE TOP)
+// ==========================
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbXXXXXXXXXXXX/exec";
 
-// year in footer
-document.getElementById("year").textContent = new Date().getFullYear();
 
-// TAB SWITCHING
-const tabButtons = document.querySelectorAll("[data-tab]");
-const sellerPanel = document.getElementById("panel-seller");
-const buyerPanel = document.getElementById("panel-buyer");
+// ==========================
+// SELLER FORM SUBMIT
+// ==========================
+document.getElementById("sellerForm")?.addEventListener("submit", e => {
+  e.preventDefault();
 
-function setActive(tab) {
-  // buttons (top tabs + hero buttons)
-  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-  document.querySelectorAll(".hero2__cta .btn").forEach(b => b.classList.remove("active"));
+  const form = e.target;
+  const formData = new FormData(form);
+  const values = [];
 
-  // activate all matching buttons
-  document.querySelectorAll(`[data-tab="${tab}"]`).forEach(b => b.classList.add("active"));
+  formData.forEach(v => values.push(v));
 
-  // panels
-  sellerPanel.classList.toggle("active", tab === "seller");
-  buyerPanel.classList.toggle("active", tab === "buyer");
-}
-
-tabButtons.forEach(btn => {
-  btn.addEventListener("click", () => setActive(btn.dataset.tab));
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      formType: "seller",
+      values
+    })
+  })
+  .then(() => {
+    document.getElementById("sellerMsg").textContent =
+      "Thanks — we received your property. We'll be in touch.";
+    form.reset();
+  })
+  .catch(() => {
+    document.getElementById("sellerMsg").textContent =
+      "Something went wrong. Please try again.";
+  });
 });
 
-// default
-setActive("seller");
 
-// OPTIONAL: basic submit messages (keeps your Google Sheets hook separate)
-document.getElementById("sellerForm")?.addEventListener("submit", (e) => {
+// ==========================
+// BUYER FORM SUBMIT
+// ==========================
+document.getElementById("buyerForm")?.addEventListener("submit", e => {
   e.preventDefault();
-  document.getElementById("sellerMsg").textContent = "Submitted! We’ll reach out soon.";
-  e.target.reset();
-});
 
-document.getElementById("buyerForm")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  document.getElementById("buyerMsg").textContent = "Saved! We’ll send matching deals.";
-  e.target.reset();
+  const form = e.target;
+  const formData = new FormData(form);
+  const values = [];
+
+  formData.forEach(v => values.push(v));
+
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      formType: "buyer",
+      values
+    })
+  })
+  .then(() => {
+    document.getElementById("buyerMsg").textContent =
+      "Buy box saved. We'll only send deals that fit.";
+    form.reset();
+  })
+  .catch(() => {
+    document.getElementById("buyerMsg").textContent =
+      "Something went wrong. Please try again.";
+  });
 });

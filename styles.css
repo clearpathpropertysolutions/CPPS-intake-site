@@ -1,312 +1,76 @@
-:root{
-  --bg:#0b0b0f;
-  --text:#f2f2f7;
-  --muted:#a7a7b5;
-  --line:rgba(255,255,255,.10);
+/* ================================
+   FORM SPACING — MATCH REFERENCE
+   ================================ */
 
-  --gold1:#f5c542;
-  --gold2:#d69a1e;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: radial-gradient(1200px 800px at 10% 10%, #171726 0%, var(--bg) 60%);
-  color:var(--text);
-}
-a{color:var(--text); text-decoration:none}
-.container{max-width:1100px; margin:0 auto; padding:18px}
-.muted{color:var(--muted)}
-.msg{margin:12px 0 0; color:var(--muted); font-size:13px}
-
-/* Header */
-.header{
-  position:sticky; top:0; z-index:10;
-  background: rgba(11,11,15,.88);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  gap:14px;
-}
-.brand{display:flex; flex-direction:column; gap:6px}
-.logo{height:58px; width:auto; display:block; object-fit:contain; filter: drop-shadow(0 10px 26px rgba(0,0,0,.6));}
-.sub{margin:0; font-size:12px; color:var(--muted)}
-
-.header-right{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end}
-.contact-inline{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-
-.contact-pill{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.25);
-  color: rgba(242,242,247,.92);
-  font-size:12px;
-}
-.contact-pill:hover{border-color: rgba(245,197,66,.55)}
-.contact-pill.big{font-size:13px; padding:10px 12px}
-
-.nav a{
-  margin-left:10px;
-  color:var(--muted);
-  padding:8px 10px;
-  border-radius:10px;
-}
-.nav a:hover{color:var(--text); background: rgba(255,255,255,.06)}
-
-/* Buttons */
-.btn{
-  border:none;
-  border-radius:12px;
-  padding:11px 14px;
-  font-weight:900;
-  cursor:pointer;
-}
-.btn:hover{opacity:.95}
-.btn-outline{
-  background:transparent;
-  color:var(--text);
-  border:1px solid rgba(255,255,255,.16);
-}
-.btn.gold{
-  background: linear-gradient(90deg, var(--gold1), var(--gold2));
-  color:#0b0b0f;
+/* Overall form breathing room */
+.form {
+  padding: 24px 26px 30px;
 }
 
-/* Hero */
-.hero2{
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  border:1px solid rgba(255,255,255,.08);
-  min-height: 420px;
-  margin-top: 14px;
-  box-shadow: 0 18px 60px rgba(0,0,0,.55);
-}
-.hero2__bg{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  filter: contrast(1.05) saturate(1.05);
-}
-.hero2__overlay{
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.75) 55%, rgba(0,0,0,.92) 100%);
-}
-.hero2__content{
-  position:relative;
-  padding: 26px;
-  max-width: 760px;
-}
-.hero2__content h2{margin:0 0 10px; font-size:30px}
-.hero2__content p{margin:0; color: rgba(242,242,247,.85); line-height:1.45}
-.hero2__cta{display:flex; gap:10px; margin-top: 16px; flex-wrap:wrap}
-
-/* Gallery */
-.gallery{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin: 14px 0 8px;
-}
-.gallery img{
-  width:100%;
-  height: 170px;
-  object-fit: cover;
-  border-radius: 14px;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow: 0 12px 40px rgba(0,0,0,.45);
+/* Labels */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;               /* BIG FIX */
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 6px;
 }
 
-/* Forms shell + tabs */
-.formShell{
-  margin-top: 12px;
-  border-radius: 18px;
-  border:1px solid rgba(255,255,255,.08);
-  background: radial-gradient(900px 500px at 50% 0%, rgba(255,255,255,.06), rgba(0,0,0,.35));
-  padding: 18px;
-  box-shadow: 0 18px 60px rgba(0,0,0,.55);
-}
-.tabs{
-  display:flex;
-  justify-content:center;
-  gap: 26px;
-  border-bottom: 1px solid rgba(255,255,255,.10);
-  padding-bottom: 10px;
-  margin-bottom: 18px;
-}
-.tab{
-  background: transparent;
-  border: none;
-  color: rgba(242,242,247,.7);
-  font-weight: 900;
-  cursor:pointer;
-  padding: 10px 6px;
-  position:relative;
-}
-.tab.active{ color: var(--text); }
-.tab.active::after{
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:-11px;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--gold1), var(--gold2));
-}
-.panel{ display:none; }
-.panel.active{ display:block; }
-
-/* NEW: “Screenshot style” form card */
-.formCard{
-  max-width: 920px;
-  margin: 0 auto;
-  border-radius: 16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.25);
-  box-shadow: 0 18px 60px rgba(0,0,0,.55);
-  overflow:hidden;
-}
-.formHead{
-  padding: 18px 18px 10px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.formHead h3{margin:0 0 6px; font-size:18px}
-.formHead p{margin:0; font-size:13px; color: rgba(242,242,247,.72)}
-
-.form{padding: 14px 18px 18px}
-
-.section{
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.section:first-of-type{border-top:none; padding-top:0; margin-top:0}
-.sectionTitle{
-  font-size:12px;
-  letter-spacing:.4px;
-  text-transform:uppercase;
-  color: rgba(242,242,247,.65);
-  margin-bottom: 10px;
+/* Inputs / selects / textareas */
+input,
+select,
+textarea {
+  padding: 14px 16px;      /* Taller inputs */
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 10px;
 }
 
-/* Inputs */
-label{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  font-size:12px;
-  color: rgba(242,242,247,.72);
-}
-input, select, textarea{
-  width:100%;
-  background: rgba(15,15,22,.78);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 12px;
-  padding: 12px 12px;
-  color: var(--text);
-  outline:none;
-}
-input::placeholder, textarea::placeholder{color: rgba(167,167,181,.70)}
-input:focus, select:focus, textarea:focus{ border-color: rgba(245,197,66,.55); }
-
-/* Grids like screenshots */
-.grid2{display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px}
-.grid3{display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:12px}
-.grid4{display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:12px}
-.full{grid-column: 1 / -1}
-.col2{grid-column: span 2}
-
-/* Checkboxes area */
-.checkField{
-  border:1px solid rgba(255,255,255,.12);
-  border-radius: 12px;
-  padding: 12px;
-  background: rgba(0,0,0,.18);
-}
-.checkField legend{
-  padding:0 8px;
-  color: rgba(242,242,247,.70);
-  font-size:12px;
-}
-.checks2{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap:10px;
-  margin-top: 8px;
-}
-.checks2 label{
-  flex-direction:row;
-  align-items:center;
-  gap:10px;
-  color: rgba(242,242,247,.92);
-  font-size:12px;
-}
-.optIn{
-  margin-top: 12px;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:10px;
-  color: rgba(242,242,247,.92);
+/* Textarea height */
+textarea {
+  min-height: 120px;
 }
 
-/* Footer of form with button on right like screenshot */
-.formFoot{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap: 12px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.08);
+/* Grid row spacing */
+.grid,
+.grid2,
+.grid3,
+.grid4 {
+  gap: 18px;               /* BIG FIX */
 }
 
-/* Contact card */
-.contactCard{
-  margin-top: 18px;
-  border-radius: 18px;
-  border:1px solid rgba(255,255,255,.08);
-  background: rgba(18,18,26,.9);
-  padding:18px;
-  max-width: 920px;
-  margin-left:auto;
-  margin-right:auto;
-}
-.contactGrid{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top: 10px;
-}
-
-/* Footer */
-.footer2{
+/* Section spacing (Contact / Property / Situation etc.) */
+.section {
   margin-top: 26px;
-  padding: 26px 4px 34px;
-  text-align:center;
-  color: rgba(242,242,247,.65);
-  font-size: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
-@media (max-width: 980px){
-  .grid4{grid-template-columns: repeat(2, minmax(0,1fr));}
-  .col2{grid-column: span 2}
+/* Section titles */
+.sectionTitle {
+  font-size: 12px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: rgba(242,242,247,.7);
 }
-@media (max-width: 760px){
-  .container{padding:14px}
-  .header{flex-direction:column; align-items:flex-start}
-  .header-right{justify-content:flex-start}
-  .hero2{min-height:360px}
-  .hero2__content h2{font-size:24px}
-  .gallery{grid-template-columns: 1fr}
-  .gallery img{height:190px}
-  .grid3{grid-template-columns:1fr}
-  .grid2{grid-template-columns:1fr}
-  .checks2{grid-template-columns:1fr}
-  .formFoot{flex-direction:column; align-items:stretch}
+
+/* Checkbox spacing */
+.checks,
+.checks2 {
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.checks label,
+.checks2 label {
+  line-height: 1.4;
+}
+
+/* Buttons spacing */
+.btn {
+  margin-top: 20px;
+  padding: 14px 18px;
+  font-size: 14px;
 }

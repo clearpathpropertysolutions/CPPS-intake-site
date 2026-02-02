@@ -403,17 +403,36 @@
                   <textarea name="notes" rows="4" placeholder="Neighborhoods you prefer/avoid, HOA rules, septic/sewer, rental metrics, land use, etc."></textarea>
                 </label>
 
-                <fieldset class="checkField">
-                  <legend>Deal types</legend>
-                  <div class="checks2">
-                    <label><input type="checkbox" name="dealTypes" value="Assignment"> Assignments</label>
-                    <label><input type="checkbox" name="dealTypes" value="Double Close"> Double Close</label>
-                    <label><input type="checkbox" name="dealTypes" value="Novation"> Novation</label>
-                    <label><input type="checkbox" name="dealTypes" value="Direct Purchase"> Direct Purchase</label>
-                    <label class="full"><input type="checkbox" name="dealTypes" value="Land"> Land Deals</label>
-                  </div>
-                </fieldset>
-              </div>
+               <fieldset class="checkField">
+  <legend>Deal types</legend>
+
+  <div class="checkGrid checkGrid--2">
+    <label class="checkItem">
+      <input type="checkbox" name="dealTypes" value="Assignment">
+      <span>Assignments</span>
+    </label>
+
+    <label class="checkItem">
+      <input type="checkbox" name="dealTypes" value="Double Close">
+      <span>Double Close</span>
+    </label>
+
+    <label class="checkItem">
+      <input type="checkbox" name="dealTypes" value="Novation">
+      <span>Novation</span>
+    </label>
+
+    <label class="checkItem">
+      <input type="checkbox" name="dealTypes" value="Direct Purchase">
+      <span>Direct Purchase</span>
+    </label>
+
+    <label class="checkItem">
+      <input type="checkbox" name="dealTypes" value="Land">
+      <span>Land Deals</span>
+    </label>
+  </div>
+</fieldset>
 
               <label class="optIn">
                 <input type="checkbox" name="optIn" value="Yes" />

@@ -9,25 +9,16 @@
 
 <body>
   <!-- HEADER -->
- <header class="header">
-  <div class="brand">
-    <div class="logo-wrap">
-      <img
-        src="assets/logo-clearpath.png"
-        alt="Clear Path Property Solutions"
-        class="logo-img"
-      />
+  <header class="header">
+    <div class="brand">
+      <a class="logo-link" href="#">
+        <!-- If your logo is PNG, change .jpg to .png -->
+        <img src="assets/logo-clearpath.jpg" alt="Clear Path Property Solutions" class="logo" />
+      </a>
+      <p class="sub">
+        USA • UK • Ireland — Houses & Land • Probate • Code Violations • Pre-Foreclosure
+      </p>
     </div>
-    <p class="sub">
-      USA • UK • Ireland — Houses & Land • Probate • Code Violations • Pre-Foreclosure
-    </p>
-  </div>
-
-  <nav class="nav">
-    <a href="#forms">Forms</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
 
     <nav class="nav">
       <a href="#forms">Forms</a>
@@ -37,15 +28,15 @@
 
   <main class="container">
 
-    <!-- HERO (Luxury image) -->
+    <!-- HERO -->
     <section class="hero2">
       <div class="hero2__overlay"></div>
-      <img class="hero2__bg" src="assets/hero-house.jpg" alt="Luxury property" />
+      <img class="hero2__bg" src="assets/hero-house.jpg" alt="Property" />
 
       <div class="hero2__content">
-        <h2>Off-Market Deals. Simple Intake.</h2>
+        <h2>We Buy Houses & Land</h2>
         <p>
-          Sellers: submit your property details for review. Buyers: submit your buy box to receive matching opportunities.
+          Sellers: submit your property details for review. Buyers: submit your buy box to receive matching deals.
         </p>
 
         <div class="hero2__cta">
@@ -55,11 +46,11 @@
       </div>
     </section>
 
-    <!-- Gallery strip -->
+    <!-- GALLERY STRIP (your 3 house pics) -->
     <section class="gallery">
-      <img src="assets/thumb-1.jpg" alt="Property view 1" />
-      <img src="assets/thumb-2.jpg" alt="Property view 2" />
-      <img src="assets/thumb-3.jpg" alt="Property view 3" />
+      <img src="assets/thumb-1.jpg" alt="Property 1" />
+      <img src="assets/thumb-2.jpg" alt="Property 2" />
+      <img src="assets/thumb-3.jpg" alt="Property 3" />
     </section>
 
     <!-- FORMS -->
@@ -72,7 +63,7 @@
       <!-- SELLER PANEL -->
       <div id="panel-seller" class="panel active">
         <h3>Seller Form</h3>
-        <p class="muted">Tell us what you have and we’ll follow up fast.</p>
+        <p class="muted">Submit your property details and we’ll follow up.</p>
 
         <form id="sellerForm" class="form formCentered">
           <div class="stack">
@@ -94,7 +85,7 @@
               <option>Other</option>
             </select>
 
-            <textarea name="notes" rows="5" placeholder="Property Details (condition, repairs, asking price, timeline, land acres, etc.)"></textarea>
+            <textarea name="notes" rows="6" placeholder="Property Details (condition, repairs, asking price, timeline, land acres, etc.)"></textarea>
 
             <button class="btn gold wide" type="submit">Submit</button>
             <p id="sellerMsg" class="msg" aria-live="polite"></p>
@@ -126,7 +117,7 @@
               <option>Wholesale Buyer</option>
             </select>
 
-            <textarea name="notes" rows="5" placeholder="Buy Box (property type, price range, beds/baths, land acres, etc.)"></textarea>
+            <textarea name="notes" rows="6" placeholder="Buy Box (type, price range, beds/baths, land acres, etc.)"></textarea>
 
             <button class="btn gold wide" type="submit">Submit</button>
             <p id="buyerMsg" class="msg" aria-live="polite"></p>

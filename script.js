@@ -1,9 +1,8 @@
-// ====== PUT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ======
 const API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// ---------- Tabs ----------
+/* Tabs */
 function setTab(which) {
   document.querySelectorAll(".tab").forEach(b =>
     b.classList.toggle("active", b.dataset.tab === which)
@@ -13,7 +12,6 @@ function setTab(which) {
     p.classList.toggle("active", p.id === `panel-${which}`)
   );
 
-  // Sync hero buttons style too
   document.querySelectorAll(".hero2__cta button").forEach(b => {
     const isActive = b.dataset.tab === which;
     b.classList.toggle("gold", isActive);
@@ -24,10 +22,9 @@ function setTab(which) {
 document.querySelectorAll("[data-tab]").forEach(btn => {
   btn.addEventListener("click", () => setTab(btn.dataset.tab));
 });
-
 setTab("seller");
 
-// ---------- Form helpers ----------
+/* Forms */
 function formToObject(form) {
   const fd = new FormData(form);
   const obj = {};
@@ -44,7 +41,6 @@ async function postJSON(payload) {
   return res.json();
 }
 
-// ---------- Seller submit ----------
 const sellerForm = document.getElementById("sellerForm");
 const sellerMsg = document.getElementById("sellerMsg");
 
@@ -67,7 +63,6 @@ sellerForm.addEventListener("submit", async (e) => {
   }
 });
 
-// ---------- Buyer submit ----------
 const buyerForm = document.getElementById("buyerForm");
 const buyerMsg = document.getElementById("buyerMsg");
 

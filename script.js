@@ -1,7 +1,7 @@
 // ==========================
 // CONFIG
 // ==========================
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwmBclkjCuaq6kxF3S_IamNie3Mkvf5rhxDZcWFmKwvkm5DseMQsULatzGR4DA1hInGPg/exec";
+const SHEET_URL = "const SHEET_URL = "https://script.google.com/macros/s/AKfycbxD1-b7JrXa1F3llTG_HBAYo6RxgxSomqs-9FPI09VedmTGFmleV2w4j99MKZU3gSm5kw/exec";
 
 // ==========================
 // SELLER FORM SUBMIT

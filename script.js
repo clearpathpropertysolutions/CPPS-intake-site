@@ -1,4 +1,4 @@
-const SHEET_URL = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzAylOvhlPyFChh2pHMEnn97Ghp5zG70aW4S31Qbc-Y-f1JoRynJCdqCm_0rHETw35VOQ/exec";
 
 // ==========================
 // TAB SWITCHING (CRITICAL)

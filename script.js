@@ -1,121 +1,78 @@
-/*************************
- * CONFIG
- *************************/
-const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzAylOvhlPyFChh2pHMEnn97Ghp5zG70aW4S31Qbc-Y-f1JoRynJCdqCm_0rHETw35VOQ/exec";
+// ==========================
+// CONFIG
+// ==========================
+const SHEET_URL = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
 
-/*************************
- * YEAR
- *************************/
-document.getElementById("year").textContent = new Date().getFullYear();
-
-/*************************
- * TAB SWITCHING
- *************************/
-const tabs = document.querySelectorAll(".tab");
-const heroButtons = document.querySelectorAll(".hero2__cta button");
-const panels = document.querySelectorAll(".panel");
-
-function switchTab(tab) {
-  tabs.forEach(t => t.classList.remove("active"));
-  panels.forEach(p => p.classList.remove("active"));
-
-  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add("active");
-  document.getElementById(`panel-${tab}`).classList.add("active");
-}
+// ==========================
+// TAB SWITCHING (THIS IS THE MISSING PART)
+// ==========================
+const tabs = document.querySelectorAll("[data-tab]");
+const panels = {
+  seller: document.getElementById("panel-seller"),
+  buyer: document.getElementById("panel-buyer"),
+};
 
 tabs.forEach(tab => {
-  tab.addEventListener("click", () => switchTab(tab.dataset.tab));
-});
+  tab.addEventListener("click", () => {
+    const target = tab.dataset.tab;
 
-heroButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    switchTab(btn.dataset.tab);
+    // activate tab buttons
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    // show correct panel
+    Object.values(panels).forEach(p => p.classList.remove("active"));
+    panels[target].classList.add("active");
+
+    // scroll to forms
     document.getElementById("forms").scrollIntoView({ behavior: "smooth" });
   });
 });
 
-/*************************
- * FORM UTIL
- *************************/
-function formToObject(form) {
-  const data = {};
-  const formData = new FormData(form);
-
-  formData.forEach((value, key) => {
-    if (data[key]) {
-      if (!Array.isArray(data[key])) data[key] = [data[key]];
-      data[key].push(value);
-    } else {
-      data[key] = value;
-    }
-  });
-
-  return data;
-}
-
-async function sendForm(payload, msgEl, form) {
-  msgEl.textContent = "Submitting…";
-
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" }
-    });
-
-    const json = await res.json();
-
-    if (json.success) {
-      msgEl.textContent = "✅ Submitted successfully!";
-      form.reset();
-    } else {
-      msgEl.textContent = "❌ Error: " + (json.error || "Submission failed");
-    }
-  } catch (err) {
-    console.error(err);
-    msgEl.textContent = "❌ Network error. Check console.";
-  }
-}
-
-/*************************
- * SELLER FORM
- *************************/
-const sellerForm = document.getElementById("sellerForm");
-const sellerMsg = document.getElementById("sellerMsg");
-
-sellerForm.addEventListener("submit", e => {
+// ==========================
+// SELLER FORM
+// ==========================
+document.getElementById("sellerForm")?.addEventListener("submit", e => {
   e.preventDefault();
 
-  const data = formToObject(sellerForm);
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form).entries());
 
-  sendForm(
-    {
-      formType: "SHEET_SELLERS",
-      data
-    },
-    sellerMsg,
-    sellerForm
-  );
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify({ formType: "SELLER", data })
+  })
+    .then(() => {
+      document.getElementById("sellerMsg").textContent =
+        "Thanks — we received your property.";
+      form.reset();
+    })
+    .catch(() => {
+      document.getElementById("sellerMsg").textContent =
+        "Error submitting form.";
+    });
 });
 
-/*************************
- * BUYER FORM
- *************************/
-const buyerForm = document.getElementById("buyerForm");
-const buyerMsg = document.getElementById("buyerMsg");
-
-buyerForm.addEventListener("submit", e => {
+// ==========================
+// BUYER FORM
+// ==========================
+document.getElementById("buyerForm")?.addEventListener("submit", e => {
   e.preventDefault();
 
-  const data = formToObject(buyerForm);
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form).entries());
 
-  sendForm(
-    {
-      formType: "SHEET_BUYERS",
-      data
-    },
-    buyerMsg,
-    buyerForm
-  );
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify({ formType: "BUYER", data })
+  })
+    .then(() => {
+      document.getElementById("buyerMsg").textContent =
+        "Buy box saved successfully.";
+      form.reset();
+    })
+    .catch(() => {
+      document.getElementById("buyerMsg").textContent =
+        "Error submitting form.";
+    });
 });

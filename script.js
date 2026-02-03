@@ -1,3 +1,4 @@
+console.log("✅ script.js loaded");
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbz8iiM_mZvgXCVYzQXUAeV4BMFnnuSVI4gZpjalIDnqsJ725fdWjRPNB25PI3Q81O0WjQ/exec"; // must end with /exec
 
 document.addEventListener("DOMContentLoaded", () => {

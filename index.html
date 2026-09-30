@@ -2,476 +2,477 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
   <title>Clear Path Property Solutions</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&display=swap');
+    :root {
+      color-scheme: light dark;
+      --bg: #070807;
+      --surface: #111311;
+      --surface-2: #191c1a;
+      --ink: #f4f4f0;
+      --muted: #b2b8b3;
+      --line: #303431;
+      --pine: #d2ad66;
+      --pine-2: #efd8a8;
+      --mint: #1d211e;
+      --gold: #d2ad66;
+      --field: #0b0d0c;
+      --danger: #e17b70;
+      --shadow: 0 22px 58px rgba(0,0,0,.48);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #050605;
+        --surface: #0e100f;
+        --surface-2: #171a18;
+        --ink: #f7f7f3;
+        --muted: #b7bdb9;
+        --line: #2d312e;
+        --pine: #d8b56e;
+        --pine-2: #f2dbab;
+        --mint: #1a1f1b;
+        --gold: #d8b56e;
+        --field: #090b0a;
+        --shadow: 0 22px 58px rgba(0,0,0,.6);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: "DM Sans", sans-serif; line-height: 1.55; }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .site-nav { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid color-mix(in srgb, var(--line) 86%, transparent); background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(16px); }
+    .nav-inner { min-height: 84px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(18px, 3vw, 42px); }
+    .brand-link { display: inline-flex; align-items: center; text-decoration: none; border: 0; background: transparent; padding: 0; cursor: pointer; }
+    .brand-logo { width: 176px; height: 66px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-link { border: 0; background: transparent; color: var(--muted); padding: 10px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; }
+    .nav-link:hover, .nav-link.active { color: var(--ink); background: var(--surface-2); }
+    .nav-link.active { box-shadow: inset 0 -2px 0 var(--gold); }
+    .nav-contact-group { display: flex; align-items: center; justify-content: flex-end; gap: 10px 16px; flex-wrap: wrap; }
+    .nav-contact { text-decoration: none; font-weight: 700; color: var(--pine-2); display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+    .nav-contact:hover { color: var(--ink); }
+    .nav-contact svg { width: 18px; flex: 0 0 auto; }
+    main { min-height: calc(100vh - 190px); }
+    .page { display: none; }
+    .page.active { display: block; }
+    .hero { display: grid; grid-template-columns: 1.06fr .94fr; gap: clamp(28px, 5vw, 76px); align-items: center; padding: clamp(54px, 7vw, 96px) 0 72px; }
+    .eyebrow { color: var(--pine); font-weight: 700; letter-spacing: .03em; margin: 0 0 18px; }
+    h1, h2, h3 { font-family: "Libre Franklin", sans-serif; letter-spacing: -.035em; line-height: 1.05; margin-top: 0; }
+    h1 { font-size: clamp(42px, 6vw, 76px); max-width: 820px; margin-bottom: 24px; }
+    h2 { font-size: clamp(30px, 4vw, 48px); margin-bottom: 18px; }
+    h3 { font-size: 21px; margin-bottom: 10px; }
+    .lead { font-size: clamp(18px, 2vw, 22px); color: var(--muted); max-width: 650px; margin: 0 0 32px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { border: 1px solid transparent; padding: 13px 19px; border-radius: 9px; font-weight: 700; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+    .btn-primary { background: var(--gold); color: #0a0b0a; }
+    .btn-primary:hover { background: var(--pine-2); }
+    .btn-secondary { background: var(--surface); border-color: var(--line); color: var(--ink); }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--pine-2); }
+    .hero-visual { position: relative; min-height: 490px; }
+    .hero-photo { width: 100%; height: 470px; object-fit: cover; border-radius: 4px 4px 44px 4px; box-shadow: var(--shadow); }
+    .hero-note { position: absolute; left: -28px; bottom: 28px; width: 238px; background: var(--surface); border: 1px solid var(--line); padding: 20px; box-shadow: var(--shadow); }
+    .hero-note strong { display: block; font-size: 28px; color: var(--pine-2); font-family: "Libre Franklin", sans-serif; margin-bottom: 2px; }
+    .hero-note span { color: var(--muted); font-size: 14px; }
+    .trust-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 19px 0; }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .trust-item { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; font-weight: 700; color: var(--muted); }
+    .trust-item svg { width: 21px; color: var(--pine); flex: 0 0 auto; }
+    .section { padding: clamp(70px, 8vw, 108px) 0; }
+    .section-head { max-width: 690px; margin-bottom: 42px; }
+    .section-head p { color: var(--muted); font-size: 18px; margin: 0; }
+    .path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .path-card { position: relative; min-height: 470px; overflow: hidden; border-radius: 14px; color: #fff; display: flex; align-items: end; }
+    .path-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .path-card:hover img { transform: scale(1.025); }
+    .path-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(3,4,3,.96), rgba(3,4,3,.12) 66%); }
+    .path-content { position: relative; z-index: 1; padding: 34px; max-width: 470px; }
+    .path-content h3 { font-size: 30px; }
+    .path-content p { margin: 0 0 22px; color: #e4ede8; }
+    .path-content .btn { background: #f5f4ef; color: #111311; }
+    .steps { background: #101210; color: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .steps .section-head p { color: #bbc0bc; }
+    .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,.22); }
+    .step { padding: 32px 32px 10px 0; }
+    .step + .step { border-left: 1px solid rgba(255,255,255,.22); padding-left: 32px; }
+    .step-num { color: var(--gold); font: 700 14px "Libre Franklin", sans-serif; margin-bottom: 54px; }
+    .step p { color: #c5d3ce; margin: 0; }
+    .cta-band { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; background: var(--gold); color: #1b241f; padding: 42px; margin: 70px 0; border-radius: 4px 28px 4px 4px; }
+    .cta-band h2 { margin-bottom: 6px; font-size: clamp(28px, 3.6vw, 44px); }
+    .cta-band p { margin: 0; }
+    .cta-band .btn { background: #0a0b0a; color: #fff; }
+
+    .hero-proof { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 28px; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .hero-proof span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-proof svg { width: 17px; height: 17px; color: var(--gold); }
+    .offer-stats { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .offer-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .offer-stat { padding: 27px clamp(18px, 4vw, 46px); text-align: center; }
+    .offer-stat + .offer-stat { border-left: 1px solid var(--line); }
+    .offer-stat strong { display: block; font: 700 clamp(25px, 3.2vw, 38px)/1 "Libre Franklin", sans-serif; color: var(--pine-2); margin-bottom: 7px; }
+    .offer-stat span { color: var(--muted); font-weight: 600; }
+    .badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .trust-badge { background: var(--bg); padding: 24px 20px; display: flex; gap: 13px; align-items: center; font-weight: 700; }
+    .trust-badge svg { width: 23px; height: 23px; color: var(--gold); flex: 0 0 auto; }
+    .home-section { padding: clamp(64px, 8vw, 102px) 0; }
+    .home-section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .home-section .section-head { margin-bottom: 38px; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .process-card { padding: 31px 28px 8px 0; }
+    .process-card + .process-card { border-left: 1px solid var(--line); padding-left: 28px; }
+    .process-num { display: inline-grid; place-items: center; width: 38px; height: 38px; background: var(--gold); color: #0a0b0a; font-weight: 800; margin-bottom: 28px; }
+    .process-card p { color: var(--muted); margin-bottom: 0; }
+    .situation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .situation-card { background: var(--bg); border: 1px solid var(--line); padding: 26px; min-height: 170px; }
+    .situation-card svg { width: 25px; height: 25px; color: var(--gold); margin-bottom: 24px; }
+    .situation-card p { color: var(--muted); margin: 0; }
+    .comparison { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); }
+    .comparison th, .comparison td { padding: 19px 22px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .comparison th { color: var(--pine-2); font: 700 17px "Libre Franklin", sans-serif; }
+    .comparison th:first-child, .comparison td:first-child { width: 34%; color: var(--ink); font-weight: 700; }
+    .comparison td { color: var(--muted); }
+    .comparison tr:last-child td { border-bottom: 0; }
+    .comparison .better { color: var(--ink); background: color-mix(in srgb, var(--gold) 7%, var(--surface)); }
+    .expect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .expect-card { border-top: 2px solid var(--gold); padding: 28px 24px; background: var(--surface-2); }
+    .expect-card p { color: var(--muted); margin: 0; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-list details { border-bottom: 1px solid var(--line); }
+    .faq-list summary { list-style: none; cursor: pointer; padding: 23px 48px 23px 0; position: relative; font: 700 18px "Libre Franklin", sans-serif; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: "+"; position: absolute; right: 5px; top: 17px; color: var(--gold); font: 400 28px/1 sans-serif; }
+    .faq-list details[open] summary::after { content: "−"; }
+    .faq-list details p { color: var(--muted); max-width: 780px; margin: -5px 0 24px; }
+    .contact-panel { display: grid; grid-template-columns: 1fr auto; gap: 34px; align-items: center; background: var(--gold); color: #111; padding: clamp(30px, 5vw, 56px); border-radius: 3px 28px 3px 3px; }
+    .contact-panel h2 { margin-bottom: 10px; }
+    .contact-panel p { margin: 0; max-width: 650px; }
+    .contact-panel .btn { background: #090a09; color: #fff; }
+    .page-head { padding: 70px 0 36px; display: grid; grid-template-columns: 1fr .65fr; gap: 40px; align-items: end; }
+    .page-head h1 { font-size: clamp(38px, 5vw, 64px); margin-bottom: 16px; }
+    .page-head p { color: var(--muted); font-size: 19px; margin: 0; }
+    .page-stat { border-left: 2px solid var(--gold); padding-left: 20px; color: var(--muted); }
+    .page-stat strong { display: block; color: var(--ink); font-size: 18px; margin-bottom: 4px; }
+    .form-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .62fr); gap: 34px; padding-bottom: 90px; align-items: start; }
+    .form-card { background: var(--surface); border: 1px solid var(--line); padding: clamp(24px, 4vw, 46px); border-radius: 4px 22px 4px 4px; }
+    .form-embed { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 12px; border-radius: 4px 22px 4px 4px; overflow: hidden; }
+    .form-embed iframe { display: block; width: 100%; min-height: 1500px; border: 0; background: #fff; border-radius: 3px 12px 3px 3px; }
+    .form-section + .form-section { border-top: 1px solid var(--line); margin-top: 34px; padding-top: 34px; }
+    .form-section h2 { font-size: 25px; margin-bottom: 22px; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .field.full { grid-column: 1 / -1; }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 7px; }
+    .hint { color: var(--muted); font-weight: 400; }
+    input, select, textarea { width: 100%; border: 1px solid var(--line); background: var(--field); color: var(--ink); border-radius: 7px; padding: 12px 13px; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--pine); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pine) 18%, transparent); }
+    textarea { min-height: 116px; resize: vertical; }
+    .check-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .check { border: 1px solid var(--line); background: var(--field); border-radius: 7px; padding: 11px 12px; display: flex; gap: 9px; align-items: center; font-weight: 500; cursor: pointer; }
+    .check input { width: auto; accent-color: var(--pine); }
+    .form-footer { display: flex; gap: 18px; align-items: center; justify-content: space-between; margin-top: 34px; }
+    .form-footer p { margin: 0; color: var(--muted); font-size: 13px; max-width: 410px; }
+    .aside { display: grid; gap: 20px; position: sticky; top: 96px; }
+    .aside-card { border-top: 3px solid var(--gold); background: var(--surface-2); padding: 26px; }
+    .aside-card p, .aside-card li { color: var(--muted); }
+    .aside-card ul { padding-left: 19px; margin-bottom: 0; }
+    .aside-card a { color: var(--pine-2); font-weight: 700; text-decoration: none; }
+    .contact-links { display: grid; gap: 10px; margin-top: 14px; }
+    .contact-links a { display: inline-flex; align-items: center; gap: 9px; width: fit-content; max-width: 100%; }
+    .contact-links span { overflow-wrap: anywhere; }
+    .contact-links svg { width: 18px; height: 18px; flex: 0 0 auto; }
+    .aside-photo { width: 100%; height: 250px; object-fit: cover; }
+    .form-status { display: none; margin-top: 16px; color: var(--pine-2); font-weight: 700; }
+    .form-status.show { display: block; }
+    footer { border-top: 1px solid var(--line); padding: 28px 0 38px; color: var(--muted); background: #050605; }
+    .footer-row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    .footer-brand { display: inline-flex; width: fit-content; }
+    .footer-logo { width: 206px; height: 80px; object-fit: contain; }
+    .footer-contact { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-contact a { text-decoration: none; font-weight: 600; color: var(--pine-2); }
+    .mobile-menu { display: none; }
+    @media (max-width: 780px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      .site-nav { position: relative; }
+      .nav-inner { min-height: 0; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 8px 0 0; }
+      .brand-logo { width: 142px; height: 54px; }
+      .nav-contact-group { gap: 2px; flex-wrap: nowrap; }
+      .nav-contact span { display: none; }
+      .nav-contact { padding: 10px; }
+      .nav-links { grid-column: 1 / -1; justify-content: space-between; gap: 0; border-top: 1px solid var(--line); }
+      .nav-link { flex: 1; padding: 11px 6px; font-size: 13px; }
+      .hero { grid-template-columns: 1fr; padding-top: 48px; }
+      .hero-visual { min-height: 390px; }
+      .hero-photo { height: 380px; }
+      .hero-note { left: 16px; bottom: -12px; }
+      .trust-grid { grid-template-columns: 1fr; gap: 12px; }
+      .trust-item { justify-content: flex-start; }
+      .path-grid, .page-head, .form-layout, .contact-panel { grid-template-columns: 1fr; }
+      .offer-stat-grid, .process-grid, .situation-grid, .expect-grid { grid-template-columns: 1fr; }
+      .offer-stat + .offer-stat { border-left: 0; border-top: 1px solid var(--line); }
+      .badge-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-card { padding: 26px 0; }
+      .process-card + .process-card { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+      .comparison, .comparison tbody, .comparison tr, .comparison td { display: block; }
+      .comparison thead { display: none; }
+      .comparison tr { border-bottom: 1px solid var(--line); }
+      .comparison tr:last-child { border-bottom: 0; }
+      .comparison td, .comparison th:first-child, .comparison td:first-child { width: 100%; border: 0; }
+      .comparison td { padding: 12px 18px; }
+      .comparison td:first-child { padding-top: 19px; color: var(--pine-2); }
+      .comparison td:nth-child(2)::before { content: "Clear Path: "; color: var(--gold); font-weight: 700; }
+      .comparison td:nth-child(3)::before { content: "Traditional: "; color: var(--ink); font-weight: 700; }
+      .contact-panel .actions { flex-direction: column; align-items: stretch; }
+      .contact-panel .btn { width: 100%; }
+      .path-card { min-height: 390px; }
+      .step-grid { grid-template-columns: 1fr; }
+      .step { padding: 26px 0; }
+      .step + .step { border-left: 0; border-top: 1px solid rgba(255,255,255,.22); padding-left: 0; }
+      .step-num { margin-bottom: 22px; }
+      .cta-band { grid-template-columns: 1fr; padding: 30px 24px; }
+      .page-head { padding-top: 48px; }
+      .fields, .check-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .form-footer { align-items: stretch; flex-direction: column; }
+      .form-footer .btn { width: 100%; }
+      .aside { position: static; }
+      .footer-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 470px) { .badge-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
 </head>
-
 <body>
-  <!-- TOP BAR -->
-  <header class="header">
-    <div class="brand">
-      <a class="logo-link" href="#">
-        <img src="logo-clearpath.png" alt="Clear Path Property Solutions" class="logo" />
-      </a>
-      <p class="sub">
-        USA • UK • Ireland — Houses & Land • Probate • Code Violations • Pre-Foreclosure
-      </p>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="shell nav-inner">
+      <button class="brand-link" data-page="home" aria-label="Clear Path Property Solutions home">
+        <img class="brand-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="logo-footer" alt="Clear Path Property Solutions" />
+      </button>
+      <div class="nav-links">
+        <button class="nav-link active" data-page="home">Home</button>
+        <button class="nav-link" data-page="sell">Sell a property</button>
+        <button class="nav-link" data-page="buy">Investor Buy Box</button>
+      </div>
+      <div class="nav-contact-group" aria-label="Contact Clear Path Property Solutions">
+        <a class="nav-contact" href="mailto:clearpathpropertysolutions@gmail.com" aria-label="Email Clear Path Property Solutions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <span>clearpathpropertysolutions@gmail.com</span>
+        </a>
+        <a class="nav-contact" href="tel:+13362709344" aria-label="Call Clear Path Property Solutions at plus one 336 270 9344">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+1 (336) 270-9344</span>
+        </a>
+        <a class="nav-contact" href="tel:+353877370006" aria-label="Call Clear Path Property Solutions in Ireland at 087 737 0006">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Ireland 087 737 0006</span>
+        </a>
+        <a class="nav-contact" href="sms:+13362709344" aria-label="Text Clear Path Property Solutions at plus one 336 270 9344">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+          <span>Text</span>
+        </a>
+      </div>
     </div>
+  </nav>
 
-    <div class="header-right">
-      <div class="contact-inline">
-        <a class="contact-pill" href="tel:14199656293">📞 419-965-6293</a>
-        <a class="contact-pill" href="mailto:clearpathpropertysolutions@gmail.com">✉️ clearpathpropertysolutions@gmail.com</a>
-      </div>
-
-      <nav class="nav">
-        <a href="#forms">Forms</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-
-    <!-- HERO -->
-    <section class="hero2">
-      <div class="hero2__overlay"></div>
-      <img class="hero2__bg" src="thumb-1.jpg" alt="Property" />
-
-      <div class="hero2__content">
-        <h2>Submit a Property • Share Your Buy Box</h2>
-        <p>
-          Sellers: send property details for review. Buyers: submit your criteria and get matched opportunities.
-        </p>
-
-        <div class="hero2__cta">
-          <button class="btn gold" type="button" data-tab="seller">Sell a Property</button>
-          <button class="btn btn-outline" type="button" data-tab="buyer">Buyer Buy Box</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALLERY STRIP -->
-    <section class="gallery">
-      <img src="thumb-1.jpg" alt="Property 1" />
-      <img src="thumb-2.jpg" alt="Property 2" />
-      <img src="thumb-3.png" alt="Property 3" />
-    </section>
-
-    <!-- FORMS -->
-    <section id="forms" class="formShell">
-      <div class="tabs">
-        <button class="tab active" type="button" data-tab="seller">Sell a Property</button>
-        <button class="tab" type="button" data-tab="buyer">Buyer Buy Box</button>
-      </div>
-
-      <!-- SELLER PANEL -->
-      <div id="panel-seller" class="panel active">
-        <div class="formCard">
-          <div class="formHead">
-            <h3>Tell us about your property</h3>
-            <p class="muted">We buy in USA, UK, and Ireland — land included.</p>
+  <main>
+    <section id="home" class="page active" aria-labelledby="home-title">
+      <div class="shell hero">
+        <div>
+          <p class="eyebrow">A direct sale, built around your situation</p>
+          <h1 id="home-title">Sell your property without repairs, listings or waiting.</h1>
+          <p class="lead">Tell us about the property and your timeline. We review the details directly, deliver your cash offer within 48 hours and keep the process moving without agent commissions.</p>
+          <div class="actions">
+            <button class="btn btn-primary" data-page="sell">Get My Cash Offer</button>
+            <a class="btn btn-secondary" href="mailto:clearpathpropertysolutions@gmail.com">Email our team</a>
+            <a class="btn btn-secondary" href="tel:+13362709344">Call USA +1 (336) 270-9344</a>
+            <a class="btn btn-secondary" href="tel:+353877370006">Call Ireland 087 737 0006</a>
+            <a class="btn btn-secondary" href="sms:+13362709344">Text us</a>
           </div>
-
-          <form id="sellerForm" class="form">
-            <!-- CONTACT -->
-            <div class="section">
-              <div class="sectionTitle">Contact</div>
-              <div class="grid3">
-                <label>
-                  Full Name *
-                  <input name="fullName" placeholder="Jane Seller" required />
-                </label>
-                <label>
-                  Phone *
-                  <input name="phone" placeholder="(419) 965-6293" required />
-                </label>
-                <label>
-                  Email *
-                  <input name="email" type="email" placeholder="you@example.com" required />
-                </label>
-              </div>
-            </div>
-
-            <!-- PROPERTY DETAILS -->
-            <div class="section">
-              <div class="sectionTitle">Property Details</div>
-
-              <div class="grid4">
-                <label class="col2">
-                  Street Address / Area *
-                  <input name="address" placeholder="123 Main St (or area if land)" required />
-                </label>
-                <label>
-                  City
-                  <input name="city" placeholder="Greensboro" />
-                </label>
-                <label>
-                  State / County
-                  <input name="state" placeholder="NC / County" />
-                </label>
-                <label>
-                  ZIP
-                  <input name="zip" placeholder="27401" />
-                </label>
-              </div>
-
-              <div class="grid4">
-                <label>
-                  Country *
-                  <select name="country" required>
-                    <option value="">Select</option>
-                    <option>USA</option>
-                    <option>UK</option>
-                    <option>Ireland</option>
-                  </select>
-                </label>
-
-                <label>
-                  Property Type
-                  <select name="propertyType">
-                    <option value="">Select type</option>
-                    <option>Single Family</option>
-                    <option>Duplex / Multi</option>
-                    <option>Condo / Townhome</option>
-                    <option>Mobile Home</option>
-                    <option>Land</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-
-                <label>
-                  Beds
-                  <input name="beds" placeholder="3" />
-                </label>
-
-                <label>
-                  Baths
-                  <input name="baths" placeholder="2" />
-                </label>
-              </div>
-
-              <div class="grid4">
-                <label>
-                  Sq Ft
-                  <input name="sqft" placeholder="1400" />
-                </label>
-                <label>
-                  Lot Size / Acres
-                  <input name="lot" placeholder="0.25 / 2 acres" />
-                </label>
-                <label>
-                  Asking Price
-                  <input name="askingPrice" placeholder="$150,000" />
-                </label>
-                <label>
-                  Timeline
-                  <select name="timeline">
-                    <option value="">Select</option>
-                    <option>ASAP</option>
-                    <option>0–30 days</option>
-                    <option>30–60 days</option>
-                    <option>60–90 days</option>
-                    <option>Not sure</option>
-                  </select>
-                </label>
-              </div>
-
-<div class="grid2">
-  <label class="full">
-    Condition / Notes
-    <textarea name="notes" rows="4" placeholder="Repairs needed, occupancy, foundation/roof/HVAC, etc."></textarea>
-  </label>
-
-  <fieldset class="checkField">
-    <legend>Situation (check all that apply)</legend>
-
-    <div class="checkGrid checkGrid--3">
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Probate">
-        <span>Probate / Inheritance</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Pre-Foreclosure">
-        <span>Pre-Foreclosure</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Code Violations">
-        <span>Code Violations</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Vacant">
-        <span>Vacant</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Tired Landlord">
-        <span>Tired Landlord</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Just looking to sell">
-        <span>Just looking to sell</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="tags" value="Land">
-        <span>Land Deal</span>
-      </label>
-    </div>
-  </fieldset>
-</div> <!-- ✅ closes grid2 -->
-</div> <!-- ✅ closes PROPERTY DETAILS section -->
-
-<!-- CONTACT TIME -->
-<div class="section">
-              <div class="sectionTitle">Best time to contact</div>
-              <div class="grid3">
-                <label>
-                  Preferred Contact Method
-                  <select name="contactMethod">
-                    <option value="">Select</option>
-                    <option>Call</option>
-                    <option>Text</option>
-                    <option>Email</option>
-                  </select>
-                </label>
-                <label>
-                  Preferred Time Window
-                  <select name="contactWindow">
-                    <option value="">Select</option>
-                    <option>Morning</option>
-                    <option>Afternoon</option>
-                    <option>Evening</option>
-                    <option>Anytime</option>
-                  </select>
-                </label>
-                <label>
-                  Photo / Drive Link (optional)
-                  <input name="mediaLink" placeholder="Google Drive / Dropbox link" />
-                </label>
-              </div>
-            </div>
-
-            <div class="formFoot">
-              <small class="muted">By submitting, you agree we may contact you by phone, text, or email.</small>
-              <button class="btn gold" type="submit">Get My Offer</button>
-            </div>
-
-            <p id="sellerMsg" class="msg" aria-live="polite"></p>
-          </form>
-        </div>
-      </div>
-
-      <!-- BUYER PANEL -->
-      <div id="panel-buyer" class="panel">
-        <div class="formCard">
-          <div class="formHead">
-            <h3>Share your buy box</h3>
-            <p class="muted">Tell us what you buy so we can send matched deals.</p>
+          <div class="hero-proof">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>No repairs required</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>No obligation</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>You choose the timeline</span>
           </div>
-
-          <form id="buyerForm" class="form">
-            <!-- CONTACT -->
-            <div class="section">
-              <div class="sectionTitle">Contact</div>
-              <div class="grid3">
-                <label>
-                  Full Name *
-                  <input name="fullName" placeholder="John Buyer" required />
-                </label>
-                <label>
-                  Phone *
-                  <input name="phone" placeholder="(555) 555-5555" required />
-                </label>
-                <label>
-                  Email *
-                  <input name="email" type="email" placeholder="you@investor.com" required />
-                </label>
-              </div>
-            </div>
-
-            <!-- MARKETS & STRATEGY -->
-            <div class="section">
-              <div class="sectionTitle">Markets & Strategy</div>
-
-              <div class="grid4">
-                <label class="col2">
-                  Target Cities / Counties / States
-                  <input name="locations" placeholder="Example: NC (Greensboro, Winston-Salem), UK (Manchester), IE (Dublin)" />
-                </label>
-
-                <label>
-                  Markets *
-                  <select name="markets" required>
-                    <option value="">Select</option>
-                    <option>USA</option>
-                    <option>UK</option>
-                    <option>Ireland</option>
-                    <option>USA + UK</option>
-                    <option>USA + Ireland</option>
-                    <option>UK + Ireland</option>
-                    <option>USA + UK + Ireland</option>
-                  </select>
-                </label>
-
-                <label>
-                  Strategy
-                  <select name="strategy">
-                    <option value="">Select</option>
-                    <option>Fix & Flip</option>
-                    <option>Buy & Hold</option>
-                    <option>BRRRR</option>
-                    <option>Wholesale Buyer</option>
-                    <option>Development</option>
-                  </select>
-                </label>
-              </div>
-
-              <div class="grid4">
-                <label>
-                  Asset Types
-                  <select name="assetTypes">
-                    <option value="">Select</option>
-                    <option>SFR</option>
-                    <option>Townhome</option>
-                    <option>Condo</option>
-                    <option>Duplex / Multi</option>
-                    <option>Land</option>
-                    <option>Any</option>
-                  </select>
-                </label>
-
-                <label>
-                  Min Beds
-                  <input name="minBeds" placeholder="2" />
-                </label>
-
-                <label>
-                  Min Baths
-                  <input name="minBaths" placeholder="1" />
-                </label>
-
-                <label>
-                  Year Built (min)
-                  <input name="yearBuiltMin" placeholder="1950" />
-                </label>
-              </div>
-
-              <div class="grid4">
-                <label>
-                  Max Purchase Price
-                  <input name="maxPrice" placeholder="$250,000" />
-                </label>
-                <label>
-                  Rehab Level
-                  <select name="rehabLevel">
-                    <option value="">Select</option>
-                    <option>Cosmetic</option>
-                    <option>Light</option>
-                    <option>Medium</option>
-                    <option>Heavy</option>
-                    <option>Any</option>
-                  </select>
-                </label>
-                <label>
-                  Close Timeline
-                  <select name="closeTimeline">
-                    <option value="">Select</option>
-                    <option>0–14 days</option>
-                    <option>14–30 days</option>
-                    <option>30–45 days</option>
-                    <option>Flexible</option>
-                  </select>
-                </label>
-                <label>
-                  Proof of Funds?
-                  <select name="pof">
-                    <option value="">Select</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                    <option>Can provide when needed</option>
-                  </select>
-                </label>
-              </div>
-
-              <div class="grid2">
-  <label class="full">
-    Notes / Buy Box Nuance
-    <textarea name="notes" rows="4" placeholder="Neighborhoods you prefer/avoid, HOA rules, septic/sewer, rental metrics, land use, etc."></textarea>
-  </label>
-
-  <fieldset class="checkField">
-    <legend>Deal types</legend>
-
-    <div class="checkGrid checkGrid--2">
-      <label class="checkItem">
-        <input type="checkbox" name="dealTypes" value="Assignment">
-        <span>Assignments</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="dealTypes" value="Double Close">
-        <span>Double Close</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="dealTypes" value="Novation">
-        <span>Novation</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="dealTypes" value="Direct Purchase">
-        <span>Direct Purchase</span>
-      </label>
-
-      <label class="checkItem">
-        <input type="checkbox" name="dealTypes" value="Land">
-        <span>Land Deals</span>
-      </label>
-    </div>
-    
-  </fieldset>
-   <label class="optIn">
-  <input type="checkbox" name="optIn" value="Yes" />
-  Send me off-market opportunities.
-</label>             
-
-</div> <!-- closes grid2 -->
-</div> <!-- closes MARKETS & STRATEGY section -->
-            
-<div class="formFoot">
-  <small class="muted">We only send deals that fit your buy box.</small>
-  <button class="btn gold" type="submit">Save My Buy Box</button>
-</div>
-      
-            <p id="buyerMsg" class="msg" aria-live="polite"></p>
-          </form>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="hero" alt="Detached house ready for renovation" />
+          <div class="hero-note"><strong>USA · UK · Ireland</strong><span>Residential property and land considered</span></div>
         </div>
       </div>
+
+      <section class="offer-stats" aria-label="Offer highlights">
+        <div class="shell offer-stat-grid">
+          <div class="offer-stat"><strong>48 hours</strong><span>cash offer turnaround</span></div>
+          <div class="offer-stat"><strong>Flexible</strong><span>closing timeline</span></div>
+          <div class="offer-stat"><strong>$0</strong><span>agent fees to us</span></div>
+        </div>
+      </section>
+
+      <section class="shell home-section" aria-labelledby="trust-title">
+        <div class="section-head"><h2 id="trust-title">A straightforward way forward</h2><p>Your situation stays private, the numbers are explained clearly, and there is no pressure to move ahead.</p></div>
+        <div class="badge-grid">
+          <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Direct team</div>
+          <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 13h4"/></svg>Funding reviewed</div>
+          <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>No obligation</div>
+          <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Confidential</div>
+        </div>
+      </section>
+
+      <section class="home-section alt" aria-labelledby="how-title">
+        <div class="shell">
+          <div class="section-head"><p class="eyebrow">How it works</p><h2 id="how-title">Three clear steps. No runaround.</h2><p>Start with the facts. We will take it from there and keep you informed at each stage.</p></div>
+          <div class="process-grid">
+            <article class="process-card"><div class="process-num">1</div><h3>Tell us about the property</h3><p>Share the address, condition, asking price and the timing that works for you.</p></article>
+            <article class="process-card"><div class="process-num">2</div><h3>Receive your cash offer</h3><p>Our team reviews the property and local market, then delivers your cash offer within 48 hours.</p></article>
+            <article class="process-card"><div class="process-num">3</div><h3>Choose your next step</h3><p>If there is a fit, we discuss an offer and a closing plan. You decide whether to proceed.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="shell home-section" aria-labelledby="situations-title">
+        <div class="section-head"><p class="eyebrow">Real situations</p><h2 id="situations-title">Property problems do not need perfect timing.</h2><p>We review homes and land in a wide range of circumstances, including properties that may be difficult to list traditionally.</p></div>
+        <div class="situation-grid">
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M6 21V8l6-5 6 5v13"/></svg><h3>Repairs and damage</h3><p>Deferred maintenance, major updates and properties sold as-is.</p></article>
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9"/><path d="m2 10 10-8 10 8"/><path d="M9 21v-6h6v6"/></svg><h3>Inherited property</h3><p>A practical route when an inherited home needs a clear plan.</p></article>
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Time-sensitive sale</h3><p>Relocation, financial pressure or another deadline shaping the move.</p></article>
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 4v16M16 4v16"/></svg><h3>Vacant property</h3><p>An empty house that is costing money or becoming harder to manage.</p></article>
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg><h3>Landlord exit</h3><p>Rental fatigue, difficult occupancy or a change in investment plans.</p></article>
+          <article class="situation-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5h16v14"/><path d="M2 19h20"/><path d="M8 9h8M8 13h5"/></svg><h3>Land and other assets</h3><p>Residential lots, commercial property and less conventional opportunities.</p></article>
+        </div>
+      </section>
+
+      <section class="home-section alt" aria-labelledby="compare-title">
+        <div class="shell">
+          <div class="section-head"><p class="eyebrow">Your options</p><h2 id="compare-title">Direct sale vs. traditional listing</h2><p>Different routes suit different priorities. Here is what changes when you work directly with a buyer.</p></div>
+          <table class="comparison">
+            <thead><tr><th>What matters</th><th class="better">Clear Path direct sale</th><th>Traditional listing</th></tr></thead>
+            <tbody>
+              <tr><td>Repairs</td><td class="better">Property can be reviewed as-is</td><td>Repairs or presentation work may be recommended</td></tr>
+              <tr><td>Agent commission</td><td class="better">No agent commission paid to us</td><td>Commission is commonly part of the sale</td></tr>
+              <tr><td>Showings</td><td class="better">Direct, private review</td><td>May involve multiple viewings and open houses</td></tr>
+              <tr><td>Timeline</td><td class="better">Discuss a closing date that fits the situation</td><td>Depends on marketing, buyer finance and the chain</td></tr>
+              <tr><td>Certainty</td><td class="better">Terms discussed before you choose to proceed</td><td>Offers can depend on finance and buyer conditions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="shell home-section" aria-labelledby="expect-title">
+        <div class="section-head"><p class="eyebrow">Seller-first standards</p><h2 id="expect-title">The experience we work to deliver</h2><p>Every enquiry is different. These are the standards our team brings to each conversation.</p></div>
+        <div class="expect-grid">
+          <article class="expect-card"><h3>Clear communication</h3><p>Direct answers, practical next steps and no jargon around the offer process.</p></article>
+          <article class="expect-card"><h3>Respect for your decision</h3><p>Review the option without pressure. An enquiry never commits you to a sale.</p></article>
+          <article class="expect-card"><h3>Privacy throughout</h3><p>Your property details are handled as a private enquiry, not a public listing.</p></article>
+        </div>
+      </section>
+
+      <section class="home-section alt" aria-labelledby="faq-title">
+        <div class="shell">
+          <div class="section-head"><p class="eyebrow">Frequently asked questions</p><h2 id="faq-title">Before you send the details</h2></div>
+          <div class="faq-list">
+            <details><summary>Do I need to make repairs first?</summary><p>No. You can tell us about the property in its current condition, including known repairs, code issues or deferred maintenance.</p></details>
+            <details><summary>Am I committing to sell by requesting an offer?</summary><p>No. Sending an enquiry is simply the first review step. You decide whether any proposed route is right for you.</p></details>
+            <details><summary>Are there agent fees?</summary><p>Clear Path does not charge you an agent commission for a direct purchase. Any property-specific third-party costs are discussed before you decide to proceed.</p></details>
+            <details><summary>What types of property do you consider?</summary><p>We consider houses, multi-family property, apartments, commercial property and land across the USA, UK and Ireland.</p></details>
+            <details><summary>How quickly will I receive an offer, and when can the sale close?</summary><p>We deliver your cash offer within 48 hours. Closing timing depends on the property, title and local process, so tell us your preferred date and we will discuss what is realistically possible.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="shell home-section" aria-labelledby="contact-title">
+        <div class="contact-panel">
+          <div><h2 id="contact-title">Ready to talk about the property?</h2><p>Start the seller enquiry, email, call or text the team. We will review the details and deliver your cash offer within 48 hours.</p></div>
+          <div class="actions"><button class="btn" data-page="sell">Get My Cash Offer</button><a class="btn btn-secondary" href="mailto:clearpathpropertysolutions@gmail.com">Email us</a><a class="btn btn-secondary" href="tel:+13362709344">Call USA</a><a class="btn btn-secondary" href="tel:+353877370006">Call Ireland</a><a class="btn btn-secondary" href="sms:+13362709344">Text us</a></div>
+        </div>
+      </section>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contactCard">
-      <h3>Questions? Let’s talk.</h3>
-      <p class="muted">We keep it simple, private, and professional. Reach out and we’ll move at your pace.</p>
-
-      <div class="contactGrid">
-        <a class="contact-pill big" href="tel:14199656293">📞 419-965-6293</a>
-        <a class="contact-pill big" href="mailto:clearpathpropertysolutions@gmail.com">✉️ clearpathpropertysolutions@gmail.com</a>
+    <section id="sell" class="page" aria-labelledby="sell-title">
+      <div class="shell page-head">
+        <div><p class="eyebrow">Seller enquiry</p><h1 id="sell-title">Tell us about your property.</h1><p>Whether it needs repairs, has tenants, sits vacant or is simply ready for a change, give us the facts and your preferred timeline.</p></div>
+        <div class="page-stat"><strong>Properties and land considered</strong>Across the USA, UK and Ireland.</div>
+      </div>
+      <div class="shell form-layout">
+        <div class="form-embed" aria-label="Seller Enquiry form">
+          <iframe src="https://docs.google.com/forms/d/1K6UITPd5qnEMox6rI-UkTrqnQ2TYdNY-yvE6UVEIMDk/viewform?embedded=true" title="Seller Enquiry" loading="lazy">Loading Seller Enquiry…</iframe>
+        </div>
+        <aside class="aside">
+          <img class="aside-photo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="photo-sell" alt="House requiring renovation" />
+          <div class="aside-card"><h3>Situations we review</h3><ul><li>Inherited or probate property</li><li>Vacant or distressed homes</li><li>Code violations or major repairs</li><li>Pre-foreclosure</li><li>Tired landlord situations</li><li>Land opportunities</li></ul></div>
+          <div class="aside-card"><h3>Questions?</h3><div class="contact-links"><a href="mailto:clearpathpropertysolutions@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>clearpathpropertysolutions@gmail.com</span></a><a href="tel:+13362709344"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg><span>Call USA +1 (336) 270-9344</span></a><a href="tel:+353877370006"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg><span>Call Ireland 087 737 0006</span></a><a href="sms:+13362709344"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg><span>Text +1 (336) 270-9344</span></a></div></div>
+        </aside>
       </div>
     </section>
 
-    <footer class="footer2">
-      <p>© <span id="year"></span> Clear Path Property Solutions. All rights reserved.</p>
-    </footer>
-
+    <section id="buy" class="page" aria-labelledby="buy-title">
+      <div class="shell page-head">
+        <div><p class="eyebrow">Acquisition criteria</p><h1 id="buy-title">Investor Buy Box</h1><p>Show us what makes a deal work. Give us the boundaries of your acquisition strategy so the opportunities we discuss are relevant from the start.</p></div>
+        <div class="page-stat"><strong>Off-market opportunity matching</strong>Built around your market, asset and underwriting criteria.</div>
+      </div>
+      <div class="shell form-layout">
+        <div class="form-embed" aria-label="Investor Buy Box form">
+          <iframe src="https://docs.google.com/forms/d/1veN6CUFXXxto6wzHvan_w-4i31ADarFA_NGJes6S5PU/viewform?embedded=true" title="Investor Buy Box" loading="lazy">Loading Investor Buy Box…</iframe>
+        </div>
+        <aside class="aside">
+          <img class="aside-photo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="photo-buybox" alt="Distressed two-storey investment property" />
+          <div class="aside-card"><h3>A useful Investor Buy Box includes</h3><ul><li>Precise target markets</li><li>Asset and strategy fit</li><li>Purchase-price ceiling</li><li>Rehab tolerance</li><li>Close speed and funding position</li><li>Any instant deal-breakers</li></ul></div>
+          <div class="aside-card"><h3>Questions first?</h3><div class="contact-links"><a href="mailto:clearpathpropertysolutions@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>clearpathpropertysolutions@gmail.com</span></a><a href="tel:+13362709344"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg><span>Call USA +1 (336) 270-9344</span></a><a href="tel:+353877370006"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg><span>Call Ireland 087 737 0006</span></a><a href="sms:+13362709344"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg><span>Text +1 (336) 270-9344</span></a></div></div>
+        </aside>
+      </div>
+    </section>
   </main>
 
-  <script src="script.js" defer></script>
+  <footer>
+    <div class="shell footer-row">
+      <button class="brand-link footer-brand" data-page="home" aria-label="Clear Path Property Solutions home">
+        <img class="footer-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="logo-footer" alt="Clear Path Property Solutions" />
+      </button>
+      <div class="footer-contact"><a href="mailto:clearpathpropertysolutions@gmail.com">clearpathpropertysolutions@gmail.com</a><a href="tel:+13362709344">Call USA +1 (336) 270-9344</a><a href="tel:+353877370006">Call Ireland 087 737 0006</a><a href="sms:+13362709344">Text USA +1 (336) 270-9344</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var pageIds = ['home', 'sell', 'buy'];
+      function showPage(id, updateHash) {
+        if (pageIds.indexOf(id) === -1) id = 'home';
+        document.querySelectorAll('.page').forEach(function (page) { page.classList.toggle('active', page.id === id); });
+        document.querySelectorAll('.nav-link').forEach(function (link) { link.classList.toggle('active', link.getAttribute('data-page') === id); });
+        if (updateHash && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+        document.title = id === 'sell' ? 'Seller Enquiry | Clear Path Property Solutions' : id === 'buy' ? 'Investor Buy Box | Clear Path Property Solutions' : 'Clear Path Property Solutions';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      document.querySelectorAll('[data-page]').forEach(function (control) {
+        control.addEventListener('click', function () { showPage(control.getAttribute('data-page'), true); });
+      });
+      window.addEventListener('popstate', function () { showPage(location.hash.slice(1) || 'home', false); });
+      showPage(location.hash.slice(1) || 'home', false);
+
+    }());
+  </script>
+
+<script>
+(function(){
+  var specs = {'logo-footer': 1, 'photo-buybox': 4, 'photo-sell': 3, 'hero': 6};
+  function load(img, name, n){
+    var parts = [], i = 1;
+    (function next(){
+      if (i > n){ img.src = 'data:image/jpeg;base64,' + parts.join(''); return; }
+      fetch('img/' + name + '-' + i + '.txt').then(function(r){
+        if(!r.ok) throw new Error('img chunk missing');
+        return r.text();
+      }).then(function(t){ parts.push(t); i++; next(); }).catch(function(){});
+    })();
+  }
+  document.querySelectorAll('img[data-img]').forEach(function(img){
+    var name = img.getAttribute('data-img');
+    if (specs[name]) load(img, name, specs[name]);
+  });
+})();
+</script>
 </body>
 </html>
